@@ -1,0 +1,125 @@
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(load-home-init-file t t)
+ '(muse-project-alist (quote (("WikiPlanner" ("~/plans" :default "index" :major-mode planner-mode :visit-link planner-visit-link)))))
+
+;; org
+ '(org-agenda-files (quote ("~/org/enseign.org" "/home/magnien/org/livres.org" "/home/magnien/org/tasks.org" "/home/magnien/org/radar.org" "/home/magnien/org/petage.org" "/home/magnien/org/pedo.org" "/home/magnien/org/machines.org" "/home/magnien/org/ex.org" "/home/magnien/org/DynGraph.org" "/home/magnien/org/confs.org" "/home/magnien/org/centraliteHAM.org" "/home/magnien/org/all.org" "/home/magnien/org/algotel2009.org" "/home/magnien/org/admin.org" "/home/magnien/org/aiw.org")))
+ '(org-agenda-skip-scheduled-if-done t)
+
+ '(paren-mode (quote paren) nil (paren))
+ '(safe-local-variable-values (quote ((ispell-dictionary . "francais") (TeX-master . "main")))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(highline-face ((((type tty) (class color)) (:background "white" :foreground "black"))))
+ '(minibuffer-prompt ((t (:foreground "green")))))
+
+;; show line numbers
+(setq line-number-mode 1)
+
+;;; turn on font-lock mode
+;(when (fboundp 'global-font-lock-mode)
+;  (global-font-lock-mode t))
+(add-hook 'emacs-lisp-mode-hook'turn-on-font-lock)
+(add-hook 'dired-mode-hook'turn-on-font-lock)
+;;; enables the font-lock mode in C Mode
+(add-hook 'c-mode-hook'turn-on-font-lock)
+;;; python mode
+(add-hook 'python-mode-hook 'turn-on-font-lock)
+
+;; AUC TeX
+(require 'tex-site)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+(add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+
+
+;;; org 
+(require 'org-install)
+
+;; The following lines are always needed. Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+;font-lock mode for org
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+
+;remember for orgmode
+(org-remember-insinuate)
+(setq org-directory "~/org")
+(setq org-default-notes-file (concat org-directory "/tasks.org"))
+(global-set-key (kbd "C-c r") 'org-remember)    ;; (1)
+;template for remember
+(setq org-remember-templates
+  '(("Todo-nolink" ?t "* TODO %?\n %i\n" "~/org/tasks.org" "Tasks")
+    ("Todo-link" ?l "* TODO %?\n %i\n %a" "~/org/tasks.org" "Tasks")
+    ("Journal" ?j "* %U %?\n\n %i\n %a" "~/org/tasks.org" "Notes")
+))
+;sacha chuan
+;(add-hook 'remember-mode-hook 'org-remember-apply-template) ;; (2)
+;(setq org-remember-templates
+;      '((?n "* %U %?\n\n  %i\n  %a" "~/notes.org")))  ;; (3)
+;(setq remember-annotation-functions '(org-remember-annotation)) ;; (4)
+;(setq remember-handler-functions '(org-remember-handler)) ;;
+
+;customize agenda view
+;no visible effect
+(setq org-agenda-prefix-format
+  '((agenda . "  %-12:c%?-12t% s") (timeline . "  % s") (todo . "  %-12:c %-12:s") (tags . "  %-12:c")
+   (search . "  %-12:c")))
+
+;special agenda view
+;agenda with no DONE items
+(setq org-agenda-custom-commands
+      '(("b" agenda ""
+        ((org-agenda-skip-function '(org-agenda-skip-subtree-if
+                                     'regexp "DONE"))
+         (org-agenda-overriding-header "Projects waiting for something: ")
+))))
+
+(setq org-log-done t)
+(setq org-return-follows-link t)
+(setq org-deadline-warning-days 365)
+
+(setq org-todo-keywords
+ '((sequence "TODO" "WAITING" "DONE")))
+
+;;;highlight current line in agenda buffer
+;'(require 'highline)
+;'(add-hook 'org-agenda-mode-hook '(lambda () (highline-local-mode 1)))
+(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
+
+(require 'org-crypt)
+(setq org-crypt-key "Clemence Magnien")
+(add-hook 'before-save-hook 'org-encrypt-entries)
+(global-set-key "\C-ce" 'org-decrypt-entry)
+
+
+;; packages perso
+(add-to-list 'load-path "/home/magnien/.lisp_files/")
+;gestion des sauvegardes automatiques
+(require 'backup-dir)
+(setq bkup-backup-directory-info
+      '((t "/home/magnien/.backups" ok-create full-path)))
+
+(setq load-home-init-file t) ; don't load init file from ~/.xemacs/init.el
+
+;;tuareg mode
+  (setq auto-mode-alist (cons '("\.ml[iylp]?\'" . tuareg-mode) auto-mode-alist))
+  (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+  (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+
+;;notmuch (email client)
+(require 'notmuch)

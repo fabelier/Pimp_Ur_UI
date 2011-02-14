@@ -1,0 +1,70 @@
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# suit to get started fast.
+
+[general]
+#accounts = Lavabit,Lip6
+accounts = Lavabit,Lip6,Rfnet
+ui = TTY.TTYUI
+
+############### Lavabit ##################
+[Account Lavabit]
+localrepository = LocalLavabit
+remoterepository = RemoteLavabit
+
+[Repository LocalLavabit]
+type = Maildir
+localfolders = ~/Mail/Lavabit
+
+[Repository RemoteLavabit]
+type = IMAP
+ssl=yes
+remotehost = lavabit.com
+remoteuser = fournier
+remotepassfile = ~/.offlineimap/Password.IMAP.Lavabit
+folderfilter = lambda foldername: not re.search('(^Archive\.|^Sent\.)', foldername)
+
+############### RF.NET ##################
+[Account Rfnet]
+localrepository = LocalRfnet
+remoterepository = RemoteRfnet
+
+[Repository LocalRfnet]
+type = Maildir
+localfolders = ~/Mail/Rfnet
+
+[Repository RemoteRfnet]
+type = Gmail 
+remoteuser = raphael@raphaelfournier.net
+remotepassfile = ~/.offlineimap/Password.IMAP.Rfnet
+realdelete = no
+# l'injonction nametrans permet de faire un nommage différent des dossiers en
+# local (par ex. ici, [Gmail].Brouillons devient Drafts)
+nametrans = lambda foldername: re.sub('.*rouillons$', 'Drafts', re.sub('.*Priori.*$', 'Prioritaire', re.sub('.*Suivis.*$', 'Suivis', re.sub('.*Spam.*$', 'Spam', re.sub('.*essages envoy.*$', 'Sent', re.sub('.*orbeil.*$', 'Trash', re.sub('.*Tous les.*$', 'Archives', foldername)))))))
+#
+#[Repository RemoteRfnet]
+#type = IMAP
+#ssl=yes
+#remotehost = ssl0.ovh.net
+#remoteuser = raphael@raphaelfournier.net
+#remotepassfile = ~/.offlineimap/Password.IMAP.Rfnet
+#nametrans = lambda foldername: re.sub('^INBOX\.', '', foldername)
+#folderfilter = lambda foldername: not re.search('(^Archive\.|^Sent\.)', foldername)
+
+############### LIP6 ##################
+[Account Lip6]
+localrepository = LocalLip6
+remoterepository = RemoteLip6
+
+[Repository LocalLip6]
+type = Maildir
+localfolders = ~/Mail/Lip6
+
+[Repository RemoteLip6]
+type = IMAP
+ssl=yes
+remotehost = tibre.lip6.fr
+remoteuser = fournier
+remotepassfile = ~/.offlineimap/Password.IMAP.Lip6
+# folderfilter me permet d'éviter que certains dossiers locaux ne soient pas
+# synchronisés
+folderfilter = lambda foldername: not re.search('(^Archives\.|^Sent\.)', foldername)

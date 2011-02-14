@@ -1,0 +1,21 @@
+Few links on orgmode :
+Worg http://orgmode.org/worg/
+MobileOrg for iPhone/iPod touch http://mobileorg.ncogni.to/
+Vim edition VimOrganizer https://github.com/hsitz/VimOrganizer
+android-orgmode Org-mode on android platform http://code.google.com/p/android-orgmode/
+
+Muttator (aka le Vimperator de mutt) http://vimperator.org/muttator
+
+Pentadactyl le fork assez rapide de Vimperator http://dactyl.sourceforge.net/pentadactyl/
+
+
+Something I forgot to talk about since I was the Windows guy ;) is
+inotify http://en.wikipedia.org/wiki/Inotify with incrontab
+http://inotify.aiken.cz/?section=incron&page=about&lang=en .
+
+In the same way that crontab allows to schedule tasks as time changes,
+incrontab allows to schedule tasks when the file system inodes (hence
+the name) change. You can use it to update indexes when a file is
+added in a folder for example or anything that is recurrent and file
+based in your workflow.
+

@@ -1,0 +1,28 @@
+Suite au Workshop d'hier du Fabelier, voici mes fichiers de conf pour AwesomeWM
+(c'est du Lua) et pour Offlineimap (c'est du Python). Enlève les terminaisons
+".removethis" et déplace awesome.lua dans ~/.config/awesome/ (à créer
+éventuellement) et offlineimaprc dans ~/.offlineimparc. 
+
+Dans offlineimaprc, il y a 3 comptes de définis, tu peux simplement désactiver
+la synchronisation de certains en modifiant la liste "accounts" au début du
+fichier. J'ai des fichiers Password.IMAP.<account> dans un dossier
+~/.offlineimap, avec des permissions 700 et contenant (en clair) le password du
+compte. Il y a peut-être d'autres méthodes.
+
+Pour awesome, j'ai installé le paquet vicious-git dans AUR, qui fournit des
+widgets. J'espère que le fichier permet un fonctionnement tel quel. Je peux t'aider
+si tu le souhaite pour débuter. Comme tu le verras, tu peux commenter les lignes
+qui gênent en ajoutant "--" au début de celles-ci. Après avoir modifié le
+fichier de configuration, tu peux relancer awesome via la combinaison de touches
+"Ctrl+Win+R". Un terminal xterm peut se lancer via Win+Entrée. 
+
+Pour info :
+La page principale du projet  Awesome :
+https://awesome.naquadah.org/
+La page du wiki sur Vicious :
+https://awesome.naquadah.org/wiki/Vicious
+
+La page du wiki d'Archlinux sur Offlineimap :
+https://wiki.archlinux.org/index.php/OfflineIMAP (j'ai piqué des trucs de config
+pour mutt+offlineimap sur le site
+http://pbrisbin.com/posts/mutt_gmail_offlineimap/ mentionné en bas de page).

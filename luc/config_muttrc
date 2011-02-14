@@ -1,0 +1,187 @@
+##
+# ~/.mutt/muttrc
+###
+
+# Command bind :
+# # Syntax: bind <map> <key> <function>
+# # Values for <map>:
+# # generic, alias, attach, browser, editor, index, compose, pager, pgp,
+# postpone
+# # Special values for <key>: \t, <tab>, \r, \n, \e, <esc>, <up>, <down>, 
+# #   <left>, <right>, <pageup>, <pagedown>, <backspace>, <delete>, 
+# # <insert>, <enter>, <home>, <end>, <space>, <f1>,...,<f10>
+# #
+# # Take care, there are some defaults hardcoded in keymap.c:km_init()
+# # Most defaults (Op*) are defined in functions.h.
+#
+#
+
+#macro generic "<esc>1" ":set sendmail=\"/usr/bin/msmtp -a liafa\""
+#macro generic "<esc>2" ":set sendmail=\"/usr/bin/msmtp -a shs\""
+#macro generic "<esc>3" ":set sendmail=\"/usr/bin/msmtp -a free\""
+#macro generic "<esc>4" ":set sendmail=\"/usr/bin/msmtp -a cri\""
+macro pager,index,generic <f2> ":set sendmail=\"/usr/bin/msmtp -a lip6\""
+macro pager,index,generic <f3> ":set sendmail=\"/usr/bin/msmtp -a lip6-ext\""
+macro pager,index,generic <f4> ":set sendmail=\"/usr/bin/msmtp -a lavabit\""
+macro pager,index,generic <f5> ":set sendmail=\"/usr/bin/msmtp -a google\""
+macro pager,index,generic <f6> "<change-folder>+Lip6/INBOX<enter>"
+macro pager,index,generic <f7> "<change-folder>+Lavabit/Inbox<enter>"
+macro pager,index,generic <f8> "<change-folder>+Rfnet/INBOX<enter>"
+macro pager,index,generic <f9> "<change-folder>+Rfnet/MLEnsica<enter>"
+macro pager,index,generic <f10> ":set print_command =\"muttprint -pDCP7030\""
+#set meta_key=yes
+#macro generic "<esc>1" ":set sendmail=\"/usr/bin/msmtp -a lip6-ext\""
+#macro generic "<esc>2" ":set sendmail=\"/usr/bin/msmtp -a lip6\""
+#macro generic "<esc>3" ":set sendmail=\"/usr/bin/msmtp -a lavabit\""
+#macro generic "<esc>7" ":set sendmail=\"/usr/bin/msmtp -a laas\""
+#macro generic "<esc>8" ":set sendmail=\"/usr/bin/msmtp -a u-strasbg\""
+#macro generic "<esc>9" ":set sendmail=\"/usr/bin/msmtp -a ens-lyon\""
+# directories and commands
+set alias_file          = ~/.mutt/aliases                         # alias file
+set header_cache        = ~/.mutt/cache/headers                 # where to store headers        
+set message_cachedir    = ~/.mutt/cache/bodies                  # where to store bodies
+set certificate_file    = ~/.mutt/certificates                  # where to store certs
+set mailcap_path        = ~/.mutt/mailcap                       # entrys for filetypes
+#set signature           = ~/.mutt/sig                           # my signature file
+set tmpdir              = ~/.mutt/temp                          # where to keep temp files
+set editor              = "/usr/bin/vim +/^$"                   # use vim and skip to first blank line
+set ispell              = "/usr/bin/aspell -e -c"               # use aspell as ispell
+#set print_command       = /usr/bin/enscript                     # print with enscript
+set print_command       ="muttprint"
+set query_command = "lbdbq '%s'"
+
+# main options
+set mbox_type           = Maildir                               # mailbox type
+set folder              = ~/Mail                                # mailbox location
+set spoolfile           = "+Lip6/INBOX"                        #  default inbox
+set timeout             = 3                                     # idle time before scanning
+set mail_check          = 0                                     # minimum time between scans
+set sort_alias          = alias                                 # sort alias file by alias
+set reverse_alias                                               # show names from alias file in index
+#unset move                                                      # gmail does that
+set delete                                                      # don't ask, just do
+unset confirmappend                                             # don't ask, just do!
+set quit                                                        # don't ask, just do!!
+unset mark_old                                                  # read/new is good enough for me
+#set beep_new                                                    # bell on new mails
+set pipe_decode                                                 # strip headers and eval mimes when piping
+set thorough_search                                             # strip headers and eval mimes before searching
+
+# index options
+set sort                = threads                               # like gmail 
+#set sort_aux            = reverse-last-date-received            # like gmail
+set uncollapse_jump                                             # don't collapse on an unread message 
+set sort_re                                                     # thread based on regex
+set reply_regexp        = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# pager options
+set pager_index_lines   = 10                                    # number of index lines to show 
+set pager_context       = 5                                     # number of context lines to show
+set pager_stop                                                  # don't go to next message automatically
+set menu_scroll                                                 # scroll in menus 
+set smart_wrap                                                  # don't split words
+set tilde                                                       # show tildes like in vim
+unset markers                                                   # no ugly plus signs
+auto_view text/html                                             # view html automatically
+alternative_order text/plain text/enriched text/html            # save html for last
+set quote_regexp        = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+# formats
+set date_format         = "%d/%m/%y %R"
+set index_format        = "%4C %Z %D  %-20.20F %s %> %4c"
+#set index_format        = "%4C %Z %{%b %d} %-15.15L (%4c) %s"
+#
+#set status_format       = "[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
+set alias_format        = "%4n %t %-20a  %r"
+
+# composing mail
+set realname            = "Raphaël Fournier"                     # who am i?
+set envelope_from                                               # which from?
+set sig_dashes                                                  # dashes before my sig... sweet
+set sig_on_top                                                  # signature above quoted reply
+#set edit_headers                                                # show headers when composing
+set fast_reply                                                  # skip to compose when replying
+set sendmail_wait       = -1                                    # don't wait for sending... to complete
+set askcc                                                       # ask for CC:
+set fcc_attach                                                  # save attachments with the body
+unset mime_forward                                              # forward attachments as part of body
+set forward_format      = "Re: %s"                             # format for subject when forwarding
+set forward_decode                                              # decode when forwarding
+set mime_forward=yes
+set mime_forward_rest=yes
+set attribution         = "Le %d, %n a écrit:"                    # set the attribution
+set reply_to                                                    # reply to Reply to: field
+set reverse_name                                                # reply as whomever it was to
+set include                                                     # include message in replies
+set forward_quote                                               # include message in forwards
+
+# headers to show
+ignore *                                                        # ignore all headers
+unignore from: to: cc: date: subject:                           # show only these
+hdr_order from: to: cc: date: subject:                          # and in this order
+
+# boxes
+#mailboxes +Rfnet/INBOX +Rfnet/Archives +Rfnet/Drafts +Rfnet/Sent +Rfnet/Trash
+mailboxes +Lip6/INBOX 
+mailboxes +Lavabit/Inbox
+# The Ensica MailingList
+#mailboxes +Lip6/Archives/ML 
+# Recurse subdirectories 
+#mailboxes `echo ~/Mail/Lip6/Archives/*`
+mailboxes `find ~/Mail/Lip6/Archives -type d | grep -v "tmp\|new\|cur" |xargs`
+mailboxes `find ~/Mail/Lavabit/Archive -type d | grep -v "tmp\|new\|cur" |xargs`
+mailboxes `find ~/Mail/Lip6/Sent -type d | grep -v "tmp\|new\|cur" |xargs`
+mailboxes `find ~/Mail/Lavabit/Sent -type d | grep -v "tmp\|new\|cur" |xargs`
+mailboxes `find ~/Mail/Rfnet -type d | grep -v "tmp\|new\|cur" |xargs`
+
+# always sourced
+source $alias_file                                              # required for functionality
+#source ~/.mutt/colors.muttrc                                    # source colors file
+source ~/.mutt/colors.zenburn                                    # source colors file
+#source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
+source ~/.mutt/lip6.muttrc                                      # defaut account
+source ~/.mutt/sidebar.muttrc
+set reverse_name = yes
+alternates raphael.fournier@complexnetworks.lip6.fr|raphael@raphaelfournier.net
+
+# account specific sources
+folder-hook Lip6/* source ~/.mutt/lip6.muttrc
+folder-hook Lavabit/* source ~/.mutt/lavabit.muttrc
+folder-hook Rfnet/* source ~/.mutt/rfnet.muttrc
+#folder-hook . 'unset trash'
+#folder-hook Rfnet/* 'set trash="+Rfnet/Trash"'
+folder-hook . "push <last-entry><current-middle>"
+
+bind index zt current-top
+bind index zz current-middle
+bind index zb current-bottom
+
+# macros
+#macro index \Cr "<tag-prefix><clear-flag>N" "mark tagged messages as read"
+macro index B   "<limit>~b "                "search message bodies"
+macro index \Cf "<limit>~F<enter><current-middle>"
+macro index \Ca "<limit>all<enter><current-middle>"
+macro attach s <save-entry><kill-line>~/Mail/Attachments/ "save attachments in ~/Mail/Attachments" 
+
+# quick-sync ~/Mail immediately with offlineimap
+macro index Z   "<shell-escape>/usr/bin/offlineimap -q -o<enter>" "sync IMAP"
+macro generic,pager,index <f1> "!links /usr/share/doc/mutt/manual.html" "Show Mutt documentation"
+
+# FIX for Rxvt-unicode backspace binding
+bind pager \c? previous-line
+
+# eviter les print intempestifs
+bind pager,index P print-message
+bind pager,index p noop
+
+# GTD
+#unignore X-Label:  # make sure to display X-Label on each message
+#color header            red         default '^X-Label:'
+## labels
+# macro index <esc>y "<enter-command>set editor=\"~/.mutt/editlabel append\"\n <edit><sync-mailbox><next-undeleted> <enter-command>set editor=vim\n" "append label"
+# macro pager <esc>y "<enter-command>set editor=\"~/.mutt/editlabel append\"\n <edit><sync-mailbox><next-undeleted> <enter-command>set editor=vim\n" "append label"
+# macro index <esc>Y "<enter-command>set editor=\"~/.mutt/editlabel menu\"\n <edit><sync-mailbox><next-undeleted> <enter-command>set editor=vim\n" "edit labels"
+# macro pager <esc>Y "<enter-command>set editor=\"~/.mutt/editlabel menu\"\n <edit><sync-mailbox><next-undeleted> <enter-command>set editor=vim\n" "edit labels"
+# macro index \cy "<limit>~y " "limit view to label"
+#
+#
